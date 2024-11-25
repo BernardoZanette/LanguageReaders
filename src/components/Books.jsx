@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row, Card, Button, Spinner, Form } from "react-bootstrap";
 
 function Books() {
-    
     const [books, setBooks] = useState(null);
     const [pag, setPag] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [langToLearn, setLang] = useState('en');
+    const [langToLearn, setLang] = useState('en'); 
+    const languages = {
+        en: "English",
+        pt: "Português",
+        ru: "Русский",
+        es: "Español",
+        fr: "Français",
+        de: "Deutsch",
+        la: "Latín",
+        it: "Italiano",
+        ja: "日本語"
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -18,26 +28,80 @@ function Books() {
             })
             .catch(error => {
                 console.error(error);
-                setLoading(false); 
+                setLoading(false);
             });
-    }, [pag]);
-
-    console.log(books)
+    }, [pag, langToLearn]); 
 
     return (
         <div>
             <Container>
-                {books && books.map((book, index) => {
-                        return <div key={index}>{book.title}</div>
-                    })
-                }
+                <Row className="mb-4">
+                    <Col>
+                        <Form.Group controlId="languageSelect">
+                            <Form.Label>Select Language</Form.Label>
+                            <Form.Control
+                                as="select"
+                                value={langToLearn}
+                                onChange={(e) => setLang(e.target.value)} 
+                            >
+                                {Object.keys(languages).map((key) => (
+                                    <option key={key} value={key}>
+                                        {languages[key]}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                    </Col>
+                </Row>
+
+                <Row className="my-4">
+                    {loading ? (
+                        <Col className="d-flex justify-content-center">
+                            <Spinner animation="border" variant="primary" />
+                            <span className="ms-2">Buscando informações...</span>
+                        </Col>
+                    ) : (
+                        books && books.map((book, index) => (
+                            <Col md={4} lg={3} key={index} className="mb-4">
+                                <Card className="h-100">
+                                    <Card.Body>
+                                        <Card.Title>{book.title}</Card.Title>
+                                    </Card.Body>
+                                    <Card.Footer>
+                                        <Button variant="link" href={book.formats["text/html"]} target="_blank">
+                                            Read more
+                                        </Button>
+                                    </Card.Footer>
+                                </Card>
+                            </Col>
+                        ))
+                    )}
+                </Row>
             </Container>
-            <div>
-                {loading && <div>Buscando informações...</div>}
-                <div onClick={() => setPag(pag+1)}>Next Page</div>
-            </div>
+
+            <Container>
+                <Row className="d-flex justify-content-center my-4">
+                    <Col className="d-flex align-items-center mx-2">
+                        <Button
+                            variant="secondary"
+                            onClick={() => setPag(pag - 1)}
+                            disabled={pag === 1}
+                        >
+                            &laquo; Previous Page
+                        </Button>
+                    </Col>
+                    <Col className="d-flex align-items-center mx-2">
+                        <Button
+                            variant="secondary"
+                            onClick={() => setPag(pag + 1)}
+                        >
+                            Next Page &raquo;
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
         </div>
-    )
+    );
 }
 
-export default Books
+export default Books;
