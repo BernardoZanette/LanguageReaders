@@ -32,6 +32,7 @@ function Books() {
             });
     }, [pag, langToLearn]); 
 
+    console.log(books)
     return (
         <div>
             <Container>
@@ -66,8 +67,11 @@ function Books() {
                                 <Card className="h-100">
                                     <Card.Body>
                                         <Card.Title>{book.title}</Card.Title>
+                                        {
+                                            book.authors[0] ? <Card.Body>Autor: {book.authors[0].name}</Card.Body> : <Card.Body>No defined author</Card.Body>
+                                        }
                                     </Card.Body>
-                                    <Card.Footer>
+                                    <Card.Footer className="d-flex justify-content-end">
                                         <Button variant="link" href={book.formats["text/html"]} target="_blank">
                                             Read more
                                         </Button>
@@ -89,6 +93,9 @@ function Books() {
                         >
                             &laquo; Previous Page
                         </Button>
+                    </Col>
+                    <Col>
+                            {pag == 1 ? pag : <p>{pag-1} <span className="fw-bold">{pag}</span> {pag+1}</p>}
                     </Col>
                     <Col className="d-flex align-items-center mx-2">
                         <Button
