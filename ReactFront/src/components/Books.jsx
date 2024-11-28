@@ -15,7 +15,7 @@ function Books() {
         de: "Deutsch",
         la: "Latín",
         it: "Italiano",
-        ja: "日本語"
+        zh: "官话"
     };
 
     useEffect(() => {
@@ -67,6 +67,9 @@ function Books() {
                                 <Card className="h-100">
                                     <Card.Body>
                                         <Card.Title>{book.title}</Card.Title>
+                                        <Card.Body>
+                                            <img src={book.formats["image/jpeg"]} alt="" />
+                                        </Card.Body>
                                         {
                                             book.authors[0] ? <Card.Body>Autor: {book.authors[0].name}</Card.Body> : <Card.Body>No defined author</Card.Body>
                                         }
