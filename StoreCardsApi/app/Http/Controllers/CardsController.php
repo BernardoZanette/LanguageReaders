@@ -15,6 +15,7 @@ class CardsController extends Controller
         $dados = $request->validate([
             'word' => 'required',
             'translation' => 'required',
+            'lang' => 'required'
         ]);
         $newCard = Card::create($dados);
 

@@ -36,3 +36,32 @@ button:hover {
 button:active {
   background-color: #1e7e34;
 }
+
+#lang {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#lang:focus {
+  border-color: #007bff;
+  background-color: #e6f7ff;
+  outline: none;
+}
+
+#lang option {
+  padding: 8px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+#lang option:hover {
+  background-color: #f0f0f0;
+}

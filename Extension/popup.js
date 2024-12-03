@@ -1,14 +1,16 @@
 document.getElementById("addFlashcard").addEventListener("click", function() {
   const word = document.getElementById("word").value;
   const translation = document.getElementById("translation").value;
+  const lang = document.getElementById("lang").value;
 
   if (word && translation) {
+    debugger
     fetch("http://127.0.0.1:8000/api/cards", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ word, translation })
+      body: JSON.stringify({ word, translation, lang })
     })
     .then(response => response.json())
     .then(data => {

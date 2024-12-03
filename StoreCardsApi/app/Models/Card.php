@@ -9,6 +9,6 @@ class Card extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'word', 'translation'
+        'word', 'translation', 'lang'
     ];
 }

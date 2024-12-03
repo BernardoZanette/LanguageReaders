@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Card, Button, Spinner, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Books() {
     const [books, setBooks] = useState(null);
@@ -8,7 +9,6 @@ function Books() {
     const [langToLearn, setLang] = useState('en'); 
     const languages = {
         en: "English",
-        pt: "Português",
         ru: "Русский",
         es: "Español",
         fr: "Français",
@@ -34,12 +34,12 @@ function Books() {
 
     console.log(books)
     return (
-        <div>
+        <div className="p-3">
             <Container>
                 <Row className="mb-4">
                     <Col>
                         <Form.Group controlId="languageSelect">
-                            <Form.Label>Select Language</Form.Label>
+                            <Form.Label>Selecione o idioma</Form.Label>
                             <Form.Control
                                 as="select"
                                 value={langToLearn}
@@ -52,6 +52,17 @@ function Books() {
                                 ))}
                             </Form.Control>
                         </Form.Group>
+                    </Col>
+                    <Col className="d-flex justify-content-end align-items-center">
+                        <Link to="/meus-cards" style={{ textDecoration: 'none' }}>
+                            <Button
+                                variant="primary"
+                                className="d-flex align-items-center gap-2"
+                                style={{ borderRadius: '50px', padding: '10px 20px' }}
+                            >
+                                <span>Meus Cards</span>
+                            </Button>
+                        </Link>
                     </Col>
                 </Row>
 
@@ -76,7 +87,7 @@ function Books() {
                                     </Card.Body>
                                     <Card.Footer className="d-flex justify-content-end">
                                         <Button variant="link" href={book.formats["text/html"]} target="_blank">
-                                            Read more
+                                            Ler mais
                                         </Button>
                                     </Card.Footer>
                                 </Card>
@@ -94,7 +105,7 @@ function Books() {
                             onClick={() => setPag(pag - 1)}
                             disabled={pag === 1}
                         >
-                            &laquo; Previous Page
+                            &laquo; Página anterior
                         </Button>
                     </Col>
                     <Col>
@@ -105,7 +116,7 @@ function Books() {
                             variant="secondary"
                             onClick={() => setPag(pag + 1)}
                         >
-                            Next Page &raquo;
+                            Próxima página &raquo;
                         </Button>
                     </Col>
                 </Row>
