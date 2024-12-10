@@ -7,6 +7,24 @@ function MeusCards() {
     const [loading, setLoading] = useState(false);
     const [langToLearn, setLang] = useState('en'); // Default language
 
+    const deleteCard = (id) => {
+        fetch(`http://127.0.0.1:8000/api/cards/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao deletar o cartão');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Cartão deletado com sucesso:', data);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    };
+
     const languages = {
         en: "English",
         ru: "Русский",
@@ -95,8 +113,8 @@ function MeusCards() {
                                             </Card.Body>
                                         </Card.Body>
                                         <Card.Footer className="d-flex justify-content-end">
-                                            <Button variant="link" href={card.link} target="_blank">
-                                                Ver mais
+                                            <Button variant="danger" onClick={() => deleteCard(card.id)}>
+                                                Delete
                                             </Button>
                                         </Card.Footer>
                                     </Card>
