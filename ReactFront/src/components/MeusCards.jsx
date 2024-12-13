@@ -7,6 +7,23 @@ function MeusCards() {
     const [loading, setLoading] = useState(false);
     const [langToLearn, setLang] = useState('en'); // Default language
 
+    const fetchCards = () => {
+        fetch('http://127.0.0.1:8000/api/cards/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar os cartões');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setCards(data); // Atualiza o estado com os cartões
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+    };
+
+
     const deleteCard = (id) => {
         fetch(`http://127.0.0.1:8000/api/cards/${id}`, {
             method: 'DELETE',
@@ -19,6 +36,7 @@ function MeusCards() {
         })
         .then(data => {
             console.log('Cartão deletado com sucesso:', data);
+            fetchCards();
         })
         .catch(error => {
             console.error('Erro:', error);

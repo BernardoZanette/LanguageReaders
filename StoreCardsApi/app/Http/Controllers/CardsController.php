@@ -24,7 +24,6 @@ class CardsController extends Controller
 
     public function delete($id) {
         try {
-            // Assuming you have a Card model and the ID corresponds to a database record
             $card = Card::findOrFail($id);
             $card->delete();
     

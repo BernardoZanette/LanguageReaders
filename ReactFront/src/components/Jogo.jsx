@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Spinner, Form } from 'react-bootstrap';
+import '../styles/Jogo.css';
 
 function Jogo() {
     const location = useLocation();
@@ -62,7 +63,7 @@ function Jogo() {
     };
 
     const handleLangChange = (e) => {
-        setLangToLearn(e.target.value); // Update the language selection
+        setLangToLearn(e.target.value);
     };
 
     return (
@@ -107,28 +108,38 @@ function Jogo() {
                     cards.length > 0 && (
                         <Row className="d-flex justify-content-center">
                             <Col md={4} lg={3} className="mb-4">
-                                <Card className="h-100">
-                                    <Card.Body>
-                                        <Card.Title>{cards[currentCardIndex].word}</Card.Title>
-                                        <Card.Text>
-                                            {flipped ? (
-                                                <>
-                                                    <strong>Tradução:</strong> {cards[currentCardIndex].translation}
-                                                </>
-                                            ) : (
-                                                <em>Clique para virar o card e ver a tradução</em>
-                                            )}
-                                        </Card.Text>
-                                    </Card.Body>
-                                    <Card.Footer className="d-flex justify-content-between">
-                                        <Button variant="secondary" onClick={flipCard} style={{ whiteSpace: 'nowrap', marginRight: '2px' }}>
-                                            {flipped ? 'Esconder Tradução' : 'Girar Card'}
-                                        </Button>
-                                        <Button variant="primary" onClick={nextCard} style={{ whiteSpace: 'nowrap' }}>
-                                            Próximo Card
-                                        </Button>
-                                    </Card.Footer>
-                                </Card>
+                                <div className="card-container">
+                                    <div className={`card ${flipped ? 'flipped' : ''}`}>
+                                        <div className="front">
+                                            <Card className="h-100">
+                                                <Card.Body>
+                                                    <Card.Title>{cards[currentCardIndex].word}</Card.Title>
+                                                    <Card.Text>
+                                                        <em>Clique para virar o card e ver a tradução</em>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                        <div className="back">
+                                            <Card className="h-100">
+                                                <Card.Body>
+                                                    <Card.Title>{cards[currentCardIndex].word}</Card.Title>
+                                                    <Card.Text>
+                                                        <strong>Tradução:</strong> {cards[currentCardIndex].translation}
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    </div>
+                                </div>
+                                <Card.Footer className="d-flex justify-content-between mt-2">
+                                    <Button variant="secondary" onClick={flipCard} style={{ whiteSpace: 'nowrap', marginRight: '2px' }}>
+                                        {flipped ? 'Esconder Tradução' : 'Girar Card'}
+                                    </Button>
+                                    <Button variant="primary" onClick={nextCard} style={{ whiteSpace: 'nowrap' }}>
+                                        Próximo Card
+                                    </Button>
+                                </Card.Footer>
                             </Col>
                         </Row>
                     )
